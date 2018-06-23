@@ -1,7 +1,5 @@
 import { Observable } from 'rxjs/Rx';
 import $ from 'jquery';
-import NProgress from 'nprogress';
-// import 'nprogress/nprogress.css';
 import { TOKEN } from './constValue';
 
 const SEARCH_REPOS =
@@ -23,18 +21,14 @@ export const formatRepoSizeAndUnit = repoSize => {
 
 const getReposPromise = query => {
   return new Promise((resolve, reject) => {
-    NProgress.start();
-    NProgress.set(0.4);
     $.ajax({
       type: 'GET',
       url: `${SEARCH_REPOS}${query}`,
       success: data => {
-        NProgress.done();
         resolve(data.items);
       },
       error: err => {
         console.log(err);
-        NProgress.done();
         resolve([]);
       },
     });

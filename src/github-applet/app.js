@@ -43,11 +43,11 @@ $(() => {
 
   const input$ = Observable.fromEvent($input, 'keyup')
     .debounceTime(400)
-    .map(() => $input.val().trim())
+    .map(e => e.target.value.trim())
     .filter(text => !!text)
     .distinctUntilChanged()
     .switchMap(getRepos)
-    .do(results => $conatiner.html(''))
+    .do(() => $conatiner.html(''))
     .flatMap(results => Observable.from(results))
     .map(repos => $(reposTemplate(repos)))
     .do($repos => {
