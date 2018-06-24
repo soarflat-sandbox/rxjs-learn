@@ -19,7 +19,12 @@ export const formatRepoSizeAndUnit = repoSize => {
   return [repoSize, 'KB'];
 };
 
-const getReposPromise = query => {
+/**
+ * リポジトリ一覧を取得する
+ * @param {*} query
+ * @return {Promise}
+ */
+const fetchRepositories = query => {
   return new Promise((resolve, reject) => {
     $.ajax({
       type: 'GET',
@@ -35,8 +40,14 @@ const getReposPromise = query => {
   });
 };
 
-const getUserPromise = data => {
+/**
+ * ユーザー情報を取得する
+ * @param {*} data
+ * @return {Promise}
+ */
+const fetchUser = data => {
   const { url, conatiner } = data;
+
   return new Promise((resolve, reject) => {
     $.ajax({
       type: 'GET',
@@ -55,15 +66,18 @@ const getUserPromise = data => {
   });
 };
 
-export const getRepos = query => {
-  console.log(query);
-  const promise = getReposPromise(query);
+/**
+ * queryをもとに検索したリポジトリ一覧を返すPromiseをObservableに変換して返す
+ * @param {string} query
+ */
+export const fetchRepositories$ = query => {
+  const promise = fetchRepositories(query);
 
   return Observable.fromPromise(promise);
 };
 
-export const getUser = data => {
-  const promise = getUserPromise(data);
+export const fetchUser$ = data => {
+  const promise = fetchUser(data);
 
   return Observable.fromPromise(promise);
 };
