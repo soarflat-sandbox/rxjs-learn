@@ -32,9 +32,7 @@ const userInfoSteam = $repositories => {
     })
     .filter(data => !!data.url)
     .switchMap(fetchUser$)
-    .do(result => {
-      const { data, conatiner } = result;
-
+    .do(({ data, conatiner }) => {
       showUserInfo(conatiner, data);
     });
 
@@ -57,6 +55,7 @@ $(() => {
 
     // 流れてきた値が以前入力した値と異なる場合、次のoperatorへ
     .distinctUntilChanged()
+
     // switchMapが実行される度に、それまでのfetchRepositories$は削除され
     // 新しいfetchRepositories$が生成されるため
     // 最後にfetchRepositories$からemitされた値のみが次のoperatorへ

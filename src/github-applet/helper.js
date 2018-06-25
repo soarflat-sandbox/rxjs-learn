@@ -21,7 +21,7 @@ export const formatRepoSizeAndUnit = repoSize => {
 
 /**
  * リポジトリ一覧を取得する
- * @param {*} query
+ * @param {string} query
  * @return {Promise}
  */
 const fetchRepositories = query => {
@@ -42,7 +42,7 @@ const fetchRepositories = query => {
 
 /**
  * ユーザー情報を取得する
- * @param {*} data
+ * @param {object} data
  * @return {Promise}
  */
 const fetchUser = data => {
@@ -71,13 +71,13 @@ const fetchUser = data => {
  * @param {string} query
  */
 export const fetchRepositories$ = query => {
-  const promise = fetchRepositories(query);
-
-  return Observable.fromPromise(promise);
+  return Observable.fromPromise(fetchRepositories(query));
 };
 
+/**
+ * dataをもとに取得したユーザー情報をを返すPromiseをObservableに変換して返す
+ * @param {object} data
+ */
 export const fetchUser$ = data => {
-  const promise = fetchUser(data);
-
-  return Observable.fromPromise(promise);
+  return Observable.fromPromise(fetchUser(data));
 };
